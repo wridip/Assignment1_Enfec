@@ -5,10 +5,13 @@ app = FastAPI()
 
 @app.get("/search")
 def search_web(query: str):
+
+    query = query.lower().strip()
+
     mock_data = {
-        "capital of France": "Paris is the capital of France.",
-        "capital of Germany": "Berlin is the capital of Germany.",
-        "capital of India": "Delhi is the capital of India."
+        "capital of france": "Paris is the capital of France.",
+        "capital of germany": "Berlin is the capital of Germany.",
+        "capital of india": "Delhi is the capital of India."
     }
 
     return {

@@ -1,7 +1,7 @@
 import requests
 
 MCP_CALCULATOR_URL = "http://127.0.0.1:8001/calculate"
-
+MCP_SEARCH_URL = "http://127.0.0.1:8001/search"
 def research_node(state):
     plan = state["plan"]
 
@@ -26,7 +26,16 @@ def research_node(state):
 
     elif plan.startswith("SEARCH:"):
         query = plan.replace("SEARCH:", "").strip()
-        return {"answer": f"Search tool not implemented yet: {query}"}
 
-    else:
-        return {"answer": "Invalid plan format."}
+        try:
+            response = requests.get(
+                MCP_SEARCH_URL,
+                params={"query": query}
+            )
+
+            result = response.json()
+
+            return {"answer": result["result"]}
+
+        except Exception as e:
+            return {"answer": f"Search failed: {str(e)}"}
