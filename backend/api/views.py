@@ -4,12 +4,10 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from .models import Conversation
 
 import sys
 import os
-
-# Make root directory visible
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from agents.graph import build_graph
 
@@ -33,6 +31,13 @@ def ask_question(request):
             "plan": None,
             "answer": None
         })
+
+        #Save to database
+        Conversation.objects.create(
+        	question=question, #original user input
+        	plan=result.get("plan"),
+        	answer=result.get("answer"),
+        	)
 
         return Response({
             "question": result.get("question"),
