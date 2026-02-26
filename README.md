@@ -2,7 +2,7 @@
 
 This project is a multi-agent system built with **LangGraph**, **Django**, **FastAPI (MCP)**, and **Streamlit**. It implements a sophisticated workflow where a **Planner** agent strategizes and a **Research** agent executes tasks using tools via the Model Context Protocol (MCP).
 
-## 🏛️ System Architecture
+##  System Architecture
 
 ### User Flow & Architectural Path
 According to the project architecture, the data flows as follows:
@@ -29,14 +29,14 @@ According to the project architecture, the data flows as follows:
 ### Mental Model
 `Research Agent → HTTP call → MCP Tool → Returns JSON`
 
-## 🚀 Features
+##  Features
 - **Intelligent Planning**: Uses **Llama 3** (via Ollama) to convert user queries into structured machine instructions.
 - **Rule-Based Math Detection**: Bypasses LLM for simple arithmetic to ensure 100% accuracy and reduced hallucination.
 - **Model Context Protocol (MCP)**: A structured way for AI agents to use tools, hosted on a separate FastAPI server.
 - **Persistence**: All interactions, including the internal "thoughts" (plans) of the agent, are stored in PostgreSQL.
 - **Modern UI**: A clean, chat-like interface for real-time interaction.
 
-## 🛠️ Installation
+##  Installation
 
 ### 1. Set up a Virtual Environment
 ```bash
@@ -68,7 +68,7 @@ python manage.py migrate
 cd ..
 ```
 
-## 🏃 How to Run the App
+##  How to Run the App
 
 ### Step 1: Start the MCP Tool Server
 ```bash
@@ -91,7 +91,7 @@ cd ui
 streamlit run app.py
 ```
 
-## 📸 What it looks like
+##  What it looks like
 The application features a dark-themed chat interface.
 - **User Messages**: Red robot icon with the question.
 - **Assistant Messages**: Orange robot icon with the final answer.

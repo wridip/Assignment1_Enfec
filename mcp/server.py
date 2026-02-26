@@ -21,9 +21,16 @@ def search_web(query: str):
         "capital of india": "Delhi is the capital of India."
     }
 
-    return {
-        "result": mock_data.get(query, "No data found for this query in our mock search engine.")
-    }
+    if query in mock_data:
+        return {
+            "found": True,
+            "result": mock_data[query]
+        }
+    else:
+        return {
+            "found": False,
+            "result": None
+        }
 
 @app.post("/calculate")
 def calculator_endpoint(data: dict):

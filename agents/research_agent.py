@@ -1,9 +1,19 @@
 import requests
+from langchain_ollama import ChatOllama
+from langchain_core.messages import HumanMessage
+
+# Initialize our LLM (Llama 3 via Ollama)
+# This is used as a fallback if the search tool does not find results.
+llm = ChatOllama(
+    model="llama3",
+    temperature=0
+)
 
 # Endpoints for our Model Context Protocol (MCP) server
 # In a production environment, these should be loaded from environment variables.
 MCP_CALCULATOR_URL = "http://127.0.0.1:8001/calculate"
 MCP_SEARCH_URL = "http://127.0.0.1:8001/search"
+
 
 def research_node(state):
     """
@@ -12,7 +22,7 @@ def research_node(state):
     """
     plan = state["plan"]
 
-    # 🔹 Execution Path: Calculation
+    #  Execution Path: Calculation
     if plan.startswith("CALCULATE:"):
         # Strip the prefix to get the raw math expression
         expression = plan.replace("CALCULATE:", "").strip()
@@ -33,7 +43,7 @@ def research_node(state):
         except Exception as e:
             return {"answer": f"MCP call failed: {str(e)}"}
 
-    # 🔹 Execution Path: Web Search
+    #  Execution Path: Web Search
     elif plan.startswith("SEARCH:"):
         # Strip the prefix to get the search query
         query = plan.replace("SEARCH:", "").strip()
@@ -46,9 +56,19 @@ def research_node(state):
             )
 
             result = response.json()
+            search_result = result.get("result", "")
+
+            #  If mock search fails → fallback to LLM reasoning
+            if not result.get("found", False):
+                llm_response = llm.invoke([HumanMessage(content=query)])
+                return {"answer": llm_response.content}
 
             # Return the search result as the final answer
-            return {"answer": result["result"]}
+            return {"answer": search_result}
 
         except Exception as e:
             return {"answer": f"Search failed: {str(e)}"}
+
+    # Safety Fallback: If plan format is unexpected
+    # This ensures the system doesn't silently fail if the planner outputs something unusual.
+    return {"answer": "Invalid plan format. Unable to process request."}
