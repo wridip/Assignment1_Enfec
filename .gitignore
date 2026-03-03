@@ -1,0 +1,8 @@
+venv/ 
+mcp/__pycache__/calculator_tool.cpython-312.pyc
+mcp/__pycache__/server.cpython-312.pyc
+/agents/__pycache__
+agents/.env
+/backend/api/__pycache__
+/backend/core/__pycache__
+/backend/api/migrations/__pycache__

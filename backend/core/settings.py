@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'agentic_ai_db_assignment1',
+        'NAME': 'your_db_name',
         'USER': 'postgres',
-        'PASSWORD': 'bittu12345',
+        'PASSWORD': 'your_password',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': 'db_port_number',
     }
 }
 
