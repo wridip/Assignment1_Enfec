@@ -98,4 +98,4 @@ The application features a dark-themed chat interface.
 - **Inner Reasoning**: An expandable "View Plan" section showing the Planner's structured output (e.g., `SEARCH: Capital of Germany`).
 
 ---
-*Developed as part of Assignment 1 - AI/ML Internship.*
+
